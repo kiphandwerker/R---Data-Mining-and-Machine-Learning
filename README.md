@@ -2,22 +2,22 @@
 
 ## DM_1 contains:
 
-Best Subset Model
-Forward Step-Wise
+Best Subset Model<br>
+Forward Step-Wise<br>
 Backward Step-Wise 
 
 ## DM_2 contains:
-Ridge
-Lasso 
-Elastic Net
-Principal Component Regression
-Partial Least Squares Regression
+Ridge<br>
+Lasso<br>
+Elastic Net<br>
+Principal Component Regression<br>
+Partial Least Squares Regression<br>
 
 ## DM_3 contains:
-Logistic Regression
-Logestic Regression w/ Lasso
-Support Vector Classifier
-Support Vector Machine - Radial
-K Nearest Neighbors
-Linear Discriminent Analysis
+Logistic Regression<br>
+Logestic Regression w/ Lasso<br>
+Support Vector Classifier<br>
+Support Vector Machine - Radial<br>
+K Nearest Neighbors<br>
+Linear Discriminent Analysis<br>
 Quadratic Discriminent Analysis
