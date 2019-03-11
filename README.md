@@ -1,5 +1,8 @@
 # R---Data-Mining-and-Machine-Learning
 
+In order to view these html outputs, place the link of each code into here:<br>
+http://htmlpreview.github.io/
+
 ## DM_1 contains:
 
 Best Subset Model<br>
