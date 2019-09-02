@@ -35,3 +35,12 @@ Gradient Boosted Tree<br>
 ## DM_5 contains:
 K-means clustering<br>
 Hierarchical Clustering<br>
+
+## DM_6 contains:
+Linear Regression<br>
+Regularized Linear Regression<br>
+KNN<br>
+Regression Tree<br>
+Random Forest<br>
+Gradiant Boosting<br>
+Neural Net<br>
