@@ -14,7 +14,7 @@ Ridge<br>
 Lasso<br>
 Elastic Net<br>
 Principal Component Regression<br>
-Partial Least Squares Regression<br>
+Partial Least Squares Regression
 
 ## DM_3 contains:
 Logistic Regression<br>
@@ -30,11 +30,11 @@ General Adative Models<br>
 Classification Tree<br>
 Bagged Tree<br>
 Random Forests<br>
-Gradient Boosted Tree<br>
+Gradient Boosted Tree
 
 ## DM_5 contains:
 K-means clustering<br>
-Hierarchical Clustering<br>
+Hierarchical Clustering
 
 ## DM_6 contains:
 Linear Regression<br>
@@ -43,4 +43,13 @@ KNN<br>
 Regression Tree<br>
 Random Forest<br>
 Gradiant Boosting<br>
-Neural Net<br>
+Neural Net
+
+## DM_7 contains:
+Naive Model<br>
+Logistic Regression<br>
+Normalized Logisitic Regression<br>
+Classification Tree<br>
+Random Forest<br>
+Gradiant Boosted Tree<br>
+Nueral Net
