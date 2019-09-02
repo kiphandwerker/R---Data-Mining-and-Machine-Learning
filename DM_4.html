@@ -1,0 +1,912 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>STAT 577: Homework 4</title>
+	<meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"/>
+	<meta name="author" content="Kip Handwerker"/>
+	<meta name="created" content="2019-07-14T21:18:19"/>
+	<meta name="changed" content="2019-09-02T17:37:09.450221150"/>
+	<meta name="AppVersion" content="12.0000"/>
+	<meta name="DocSecurity" content="0"/>
+	<meta name="HyperlinksChanged" content="false"/>
+	<meta name="LinksUpToDate" content="false"/>
+	<meta name="ScaleCrop" content="false"/>
+	<meta name="ShareDoc" content="false"/>
+	<style type="text/css">
+		@page { margin-left: 1.25in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		p { margin-top: 0.13in; margin-bottom: 0.13in; direction: ltr; text-align: left; orphans: 2; widows: 2 }
+		h1 { margin-top: 0.33in; margin-bottom: 0in; direction: ltr; color: #345a8a; text-align: left; page-break-inside: avoid; orphans: 2; widows: 2 }
+		h1.western { font-family: "Calibri", serif; font-size: 16pt }
+		h1.cjk { font-family: ; font-size: 16pt }
+		h1.ctl { font-family: ; font-size: 16pt }
+		a:link { color: #4f81bd; text-decoration: none }
+	</style>
+</head>
+<body lang="en-US" link="#4f81bd" dir="ltr">
+<p class="first-paragraph"><font size="5" style="font-size: 18pt">DM
+Part 4</font></p>
+<p class="first-paragraph"> ########################################</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">setwd</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;~/R/Data
+Mining&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Clear the global environment</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">remove</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">list
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">ls</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">())</span></font></font><br/>
+<br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Load libraries</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(readr)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(mgcv)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(gam)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(MASS)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(tree)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(randomForest)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(gbm)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">library</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(dplyr)</span></font></font><br/>
+<br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Duplicated rows were removed prior to loading the NBA.merged dataset
+into R</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Open the NBA Merged Subset data</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   NBA.merged =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">read.csv</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;nba_merged_subset.csv&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,
+</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">header=</span></font></font></font><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">TRUE</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)
+</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   </span></font></font><br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Read the first 3 data rows</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">head</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged,</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">3</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+          Name GamesPlayed  MIN PTS FGM FGA  FG. ThreePM ThreePA
+ThreeP.</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+1   A.C. Green          82 18.8 6.4 2.5 4.7 53.9     0.0     0.1   
+16.7</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+2 A.J. English          70 20.6 8.8 3.6 8.2 43.9     0.0     0.4    
+9.7</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+3   A.J. Price          56 15.4 7.3 2.6 6.3 41.0     1.1     3.1   
+34.5</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+  FTM FTA  FT. OREB DREB REB AST STL BLK TOV y Year.Drafted</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+1 1.2 2.0 61.1  2.0  2.7 4.6 0.7 0.6 0.6 1.2 1         1985</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+2 1.6 2.2 70.7  0.9  1.2 2.1 2.5 0.4 0.2 1.6 0         1990</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+3 1.1 1.3 80.0  0.2  1.4 1.6 1.9 0.6 0.1 1.1 1         2009</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Check how many missing values each variable has</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">unlist</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">lapply</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">function</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(x)</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">sum</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">is.na</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(x))))</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+        Name  GamesPlayed          MIN          PTS          FGM </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           0            0            0            0            0 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+         FGA          FG.      ThreePM      ThreePA      ThreeP. </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           0            0            0            0            8 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+         FTM          FTA          FT.         OREB         DREB </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           0            0            0            0            0 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+         REB          AST          STL          BLK          TOV </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           0            0            0            0            0 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           y Year.Drafted </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           0            0</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Conduct a median imputation for ThreeP.</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">ThreeP.[</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">which</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">is.na</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">ThreeP.))]
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">median</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">ThreeP.,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">na.rm=</span></font></font></font><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">TRUE</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">y
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">as.factor</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">y)
+</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Removes the &quot;Name&quot; column from the dataset  </span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ NBA.merged &lt;-</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">select</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged,</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">1</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-1"></a>
+<br/>
+<br/>
+
+</p>
+<h1 class="western"><a name="a.-classification-tree"></a>A.)
+Classification Tree</h1>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-2"></a>
+<br/>
+<br/>
+
+</p>
+<p class="first-paragraph"> 
+</p>
+<p>Use the summary command and report the significant predictors from
+your fitted model. Use your model to obtain predicted values for the
+test cases and report the test misclassification rate. Using the plot
+command to report and interpret the component smooth functions for
+each of the predictors.</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Split data into Training and Test sample</span></i></font></font></font><br/>
+<br/>
+<font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">set.seed</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">577</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+          n =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">nrow</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+      train =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">sample</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">1</span></font></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">:</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">n,</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">0.7</span></font></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">*</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">n,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">replace=</span></font></font></font><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">FALSE</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+   NBA.test =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged[</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">train,]</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+     y.test =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">y[</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">train]</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+       y.tr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">y[train]</span></font></font><br/>
+<br/>
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Generalized Additive Model </span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+       </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ addfit =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">gam</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">~</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(GamesPlayed)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(MIN)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(PTS)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(FGM)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(FGA)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(FG.)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(ThreePM)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(ThreePA)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+             
+</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(ThreeP.)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(FTM)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(FTA)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(FT.)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(DREB)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(OREB)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(REB)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(AST)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(STL)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(BLK)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+             
+</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(TOV)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">s</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(Year.Drafted),</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">family=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">binomial,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">data=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">summary</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit)</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Call: gam(formula = y ~ s(GamesPlayed) + s(MIN) + s(PTS) + s(FGM) +
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    s(FGA) + s(FG.) + s(ThreePM) + s(ThreePA) + s(ThreeP.) + </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    s(FTM) + s(FTA) + s(FT.) + s(DREB) + (OREB) + (REB) + s(AST) +
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    s(STL) + s(BLK) + s(TOV) + s(Year.Drafted), family = binomial,
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    data = NBA.merged)</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Deviance Residuals:</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    Min      1Q  Median      3Q     Max </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+-2.6200 -0.9557  0.4410  0.8251  2.2896 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+(Dispersion Parameter for binomial family taken to be 1)</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    Null Deviance: 1565.825 on 1229 degrees of freedom</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Residual Deviance: 1230.583 on 1155 degrees of freedom</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+AIC: 1380.583 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Number of Local Scoring Iterations: 8 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Anova for Parametric Effects</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+                  Df  Sum Sq Mean Sq F value    Pr(&gt;F)    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(GamesPlayed)     1   89.47  89.472 91.5038 &lt; 2.2e-16 ***</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(MIN)             1   15.88  15.876 16.2367 5.956e-05 ***</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(PTS)             1    0.60   0.600  0.6136  0.433581    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FGM)             1    0.05   0.051  0.0517  0.820236    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FGA)             1   10.02  10.020 10.2475  0.001406 ** </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FG.)             1    0.29   0.288  0.2948  0.587268    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(ThreePM)         1    0.18   0.183  0.1869  0.665612    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(ThreePA)         1    0.77   0.772  0.7894  0.374471    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(ThreeP.)         1    0.01   0.009  0.0088  0.925148    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FTM)             1    0.00   0.003  0.0031  0.955887    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FTA)             1    0.19   0.189  0.1931  0.660430    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FT.)             1    0.09   0.095  0.0967  0.755868    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(DREB)            1   25.03  25.030 25.5986 4.887e-07 ***</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+OREB               1    0.89   0.891  0.9116  0.339893    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+REB                1    0.35   0.346  0.3537  0.552159    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(AST)             1    5.55   5.551  5.6774  0.017345 *  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(STL)             1    0.22   0.220  0.2247  0.635540    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(BLK)             1    9.41   9.414  9.6278  0.001963 ** </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(TOV)             1    2.82   2.819  2.8834  0.089764 .  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(Year.Drafted)    1    3.74   3.736  3.8206  0.050868 .  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Residuals       1155 1129.36   0.978                      </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+---</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Anova for Nonparametric Effects</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+                Npar Df Npar Chisq    P(Chi)    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+(Intercept)                                     </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(GamesPlayed)        3     4.2372 0.2369669    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(MIN)                3    17.4668 0.0005665 ***</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(PTS)                3    18.2023 0.0003997 ***</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FGM)                3     3.6809 0.2980479    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FGA)                3     7.6782 0.0531624 .  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FG.)                3    10.1518 0.0173167 *  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(ThreePM)            3     3.6431 0.3026957    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(ThreePA)            3     1.5463 0.6715878    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(ThreeP.)            3     7.7608 0.0512257 .  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FTM)                3     8.0026 0.0459663 *  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FTA)                3     1.9880 0.5748632    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(FT.)                3     5.2694 0.1531170    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(DREB)               3     5.5544 0.1354026    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+OREB                                            </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+REB                                             </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(AST)                3     4.0387 0.2572828    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(STL)                3     4.3051 0.2303407    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(BLK)                3     2.1516 0.5415418    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(TOV)                3     3.1210 0.3733304    </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+s(Year.Drafted)       3     8.3462 0.0393715 *  </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+---</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">par</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mfrow=</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">2</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">5</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">))</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">plot</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">se=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">T,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">col=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;green&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font></p>
+<p class="first-paragraph"><img src="DM_4_html_b7820a739c9bcee8.png" name="Picture" align="bottom" hspace="12" width="485" height="388" border="0"/>
+<img src="DM_4_html_f31c6ac2e601e84a.png" name="Image1" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  <font face="Consolas, serif"><font size="2" style="font-size: 11pt">addfit.trpred
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ addfit.tspred =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">newdata
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+NBA.test, </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">'response'</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ addfit.trerr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.tr</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">addfit.trpred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ addfit.tserr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.test</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">round</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit.tspred))</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ addfit.err =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit.tserr)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ addfit.err</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 0.2710027</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-3"></a>
+<br/>
+<br/>
+
+</p>
+<h1 class="western"><a name="b.-classification-tree"></a>B.)
+Classification Tree</h1>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-4"></a>
+<br/>
+<br/>
+
+</p>
+<p class="first-paragraph"> 
+</p>
+<p>The classification tree produced 3 variables as the most
+significant: field goals made (FGM), rebounds made (REB), and and
+games played (GamesPLayed). If an NBA player had a FGM &gt; 1.85, REB
+&gt; 1.75, or played &gt; 55.5 games, they were predicted to have
+played 5 or more years in the NBA. See tree.err for the
+misclassification rate for the model.</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Classification Tree</span></i></font></font></font><br/>
+<br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ tree.NBA.merged=</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">tree</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">~</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">.,NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">subset=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">train)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ cv.NBA.merged =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">cv.tree</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(tree.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">FUN=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">prune.misclass)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">plot</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(cv.NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">size,cv.NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">dev,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;b&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">xlab=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;size&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+      </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">ylab=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;Mis-Classification&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font></p>
+<p class="first-paragraph"><img src="DM_4_html_e5d06cc64ce0ab94.png" name="Image2" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">names</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(cv.NBA.merged)</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] &quot;size&quot;   &quot;dev&quot;    &quot;k&quot;      &quot;method&quot;</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  <font face="Consolas, serif"><font size="2" style="font-size: 11pt">cv.NBA.merged</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+$size</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 6 4 3 1</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+$dev</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 262 262 265 285</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+$k</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] -Inf    0    2   26</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+$method</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] &quot;misclass&quot;</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+attr(,&quot;class&quot;)</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] &quot;prune&quot;         &quot;tree.sequence&quot;</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8"> 
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">prune.NBA.merged=</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">prune.misclass</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(tree.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">best=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">4</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">summary</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(prune.NBA.merged)</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Classification tree:</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+snip.tree(tree = tree.NBA.merged, nodes = 3L)</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Variables actually used in tree construction:</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] &quot;FGM&quot;         &quot;GamesPlayed&quot; &quot;REB&quot;  
+     </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Number of terminal nodes:  4 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Residual mean deviance:  1.107 = 949 / 857 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Misclassification error rate: 0.2683 = 231 / 861</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">plot</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(prune.NBA.merged)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">text</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(prune.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">pretty=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">0</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font></p>
+<p class="first-paragraph"><img src="DM_4_html_14e111db041e0527.png" name="Image3" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8"> 
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">tree.trpred=</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(prune.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;class&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ tree.tspred=</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(prune.NBA.merged,NBA.test,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;class&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ tree.trerr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.tr</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">tree.trpred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ tree.tserr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.test</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">tree.tspred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ tree.err =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(tree.tserr)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ tree.err</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 0.3116531</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-5"></a>
+<br/>
+<br/>
+
+</p>
+<h1 class="western"><a name="c.-bagged-classification-tree"></a>C.)
+Bagged Classification Tree</h1>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-6"></a>
+<br/>
+<br/>
+
+</p>
+<p class="first-paragraph"> 
+</p>
+<p>The bagged classification tree showed that field goals made (FGM)
+was the most important predictor, followed by Games played
+(GamesPlayed), and points scored (PTS) for most important variable in
+predicting if a player played 5 or more years in the NBA. See bag.err
+for the misclassification rate for the model.</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Bagged Classification Tree </span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.NBA.merged =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">randomForest</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">~</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">.,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">data=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">subset=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">train,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mtry=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">20</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.NBA.merged </span></font></font>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Call:</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ randomForest(formula = y ~ ., data = NBA.merged, mtry = 20, subset =
+train) </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+               Type of random forest: classification</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+                     Number of trees: 500</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+No. of variables tried at each split: 20</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+        OOB estimate of  error rate: 28.46%</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Confusion matrix:</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    0   1 class.error</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+0 145 140   0.4912281</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+1 105 471   0.1822917</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">importance</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bag.NBA.merged)
+ </span></font></font>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+             MeanDecreaseGini</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+GamesPlayed         38.111923</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+MIN                 25.685039</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+PTS                 22.738577</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FGM                 19.464719</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FGA                 15.987848</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FG.                 27.230856</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreePM              3.657052</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreePA              9.055979</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreeP.             12.391144</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FTM                 12.166023</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FTA                 12.133324</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FT.                 26.618525</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+OREB                12.712428</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+DREB                20.475349</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+REB                 30.380087</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+AST                 20.063388</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+STL                 10.675811</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+BLK                 11.606017</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+TOV                 12.536178</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Year.Drafted        24.861616</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">varImpPlot</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bag.NBA.merged)
+ </span></font></font>
+</p>
+<p class="first-paragraph"><img src="DM_4_html_7845591ff8a96228.png" name="Image4" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  <font face="Consolas, serif"><font size="2" style="font-size: 11pt">bag.trpred
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bag.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;class&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.tspred =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bag.NBA.merged,NBA.test,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;class&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.trerr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.tr</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">bag.trpred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.tserr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.test</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">bag.tspred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.err =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bag.tserr)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bag.err</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 0.3224932</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-7"></a>
+<br/>
+<br/>
+
+</p>
+<h1 class="western"><a name="d.-random-forests"></a>D.) Random
+Forests</h1>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-8"></a>
+<br/>
+<br/>
+
+</p>
+<p class="first-paragraph"> 
+</p>
+<p>The random forests model showed that games played (GamesPlayed)
+was the most important predictor, followed by Field goals made (FGM),
+then points scored (PTS) and minutes played (MIN) as the most
+important variable in predicting if a player played 5 or more years
+in the NBA. See rf.err for the misclassification rate for the model.</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Random Forests </span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ rf.NBA.merged =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">randomForest</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">~</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">.,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">data=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">subset=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">train,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mtry=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">5</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">importance</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(rf.NBA.merged)
+ </span></font></font>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+             MeanDecreaseGini</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+GamesPlayed         30.681172</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+MIN                 24.621565</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+PTS                 25.249212</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FGM                 22.037958</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FGA                 18.761177</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FG.                 23.495670</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreePM              5.557401</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreePA             10.298373</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreeP.             12.186896</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FTM                 15.343272</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FTA                 14.758880</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FT.                 23.152878</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+OREB                16.362566</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+DREB                22.087688</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+REB                 27.289233</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+AST                 18.675791</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+STL                 10.702479</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+BLK                 10.641701</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+TOV                 13.437873</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Year.Drafted        20.587772</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">varImpPlot</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(rf.NBA.merged)
+ </span></font></font>
+</p>
+<p class="first-paragraph"><img src="DM_4_html_90cbcd42887f184a.png" name="Image5" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8"> 
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">rf.trpred=</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(rf.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;class&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ rf.tspred=</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(rf.NBA.merged,NBA.test,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;class&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ rf.trerr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.tr</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">rf.trpred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ rf.tserr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.test</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">rf.tspred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ rf.err =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(rf.tserr)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ rf.err</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 0.3143631</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-9"></a>
+<br/>
+<br/>
+
+</p>
+<h1 class="western"><a name="e.-gradient-boosted-tree"></a>E.)
+Gradient Boosted Tree</h1>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-10"></a>
+<br/>
+<br/>
+
+</p>
+<p class="first-paragraph"> 
+</p>
+<p>The gradient boosted tree showed that games played (GamesPlayed)
+was the most important predictor, followed by field goals made (FGM)
+as the most important variable in predicting if a player played 5 or
+more years in the NBA. See bs.err for the misclassification rate for
+the model.</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Gradient Boosted Tree </span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ y =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">as.numeric</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(NBA.merged</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">$</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">y[train])</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">1</span></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ NBA.merged.tr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">data.frame</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y,NBA.merged[train,</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">20</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">])</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bs.NBA.merged =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">gbm</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">~</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">.,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">data=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">NBA.merged.tr,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">distribution=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;bernoulli&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+                </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">n.trees=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">62</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">interaction.depth=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">1</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">cv.folds
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">0</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">summary</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bs.NBA.merged)</span></font></font></p>
+<p class="first-paragraph"><img src="DM_4_html_bf864f9f044f68b7.png" name="Image6" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+                      var    rel.inf</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+GamesPlayed   GamesPlayed 22.3865142</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+REB                   REB 18.3630444</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+PTS                   PTS  9.6097334</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+MIN                   MIN  8.3139999</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FG.                   FG.  7.8730861</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FGM                   FGM  5.7838982</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FT.                   FT.  5.6881533</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+BLK                   BLK  5.2515865</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FGA                   FGA  4.8343190</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+DREB                 DREB  3.4789777</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Year.Drafted Year.Drafted  3.2478565</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+AST                   AST  2.2890667</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FTM                   FTM  1.9196557</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+OREB                 OREB  0.9601082</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreePM           ThreePM  0.0000000</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreePA           ThreePA  0.0000000</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+ThreeP.           ThreeP.  0.0000000</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+FTA                   FTA  0.0000000</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+STL                   STL  0.0000000</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+TOV                   TOV  0.0000000</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  </span><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Select the number of trees</span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">gbm.perf</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bs.NBA.merged,</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+          </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">plot.it
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">TRUE</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+          </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">oobag.curve
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">FALSE</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+          </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">overlay
+=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font><font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">TRUE</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+          </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">method=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;OOB&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font></p>
+<p class="first-paragraph"><img src="DM_4_html_4fed4e55449b54bf.png" name="Image7" align="bottom" hspace="12" width="485" height="388" border="0"/>
+</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 21</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+attr(,&quot;smoother&quot;)</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Call:</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+loess(formula = object$oobag.improve ~ x, enp.target = min(max(4, </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+    length(x)/10), 50))</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Number of Observations: 62 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Equivalent Number of Parameters: 5.61 </font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Residual Standard Error: 0.0008552</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<span style="background: #f8f8f8">  <font face="Consolas, serif"><font size="2" style="font-size: 11pt">bs.trpred
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bs.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">n.trees=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">62</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;response&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">))
+</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&gt;</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">0.5</span></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bs.tspred =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">predict</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bs.NBA.merged,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">n.trees=</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">62</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,NBA.test,</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">type=</span></font></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;response&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">))</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&gt;</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">0.5</span></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bs.trerr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">((</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">as.numeric</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.tr)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">1</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">bs.trpred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bs.tserr =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">mean</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">((</span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">as.numeric</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(y.test)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">-</span></font></font></font><font color="#0000cf"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">1</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><font color="#ce5c00"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">!=</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">bs.tspred)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bs.err =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(bs.tserr)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ bs.err</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+[1] 0.3252033</font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-11"></a>
+<br/>
+<br/>
+
+</p>
+<h1 class="western"><a name="f.-summary"></a>F.) Summary</h1>
+<p style="margin-top: 0in; margin-bottom: 0.14in"><a name="section-12"></a>
+<br/>
+<br/>
+
+</p>
+<p class="first-paragraph"> 
+</p>
+<p>Provide a summary of your findings in (a)-(e).</p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font color="#8f5902"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #f8f8f8">#
+Summary </span></i></font></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ errmat =</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">cbind</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(addfit.err,tree.err,bag.err,rf.err,bs.err)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">rownames</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(errmat)
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;Test&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ </span></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">colnames</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(errmat)
+=</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+</span></font></font></font><font color="#204a87"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">c</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">(</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;GAM&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;Tree&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;Bagging&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;RandomForests&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">,</span></font></font><font color="#4e9a06"><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">&quot;Boosting&quot;</span></font></font></font><font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">)</span></font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt"><span style="background: #f8f8f8">
+ errmat</span></font></font></p>
+<p style="margin-top: 0in; margin-bottom: 0.14in; background: #f8f8f8">
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+           GAM      Tree   Bagging RandomForests  Boosting</font></font><br/>
+<font face="Consolas, serif"><font size="2" style="font-size: 11pt">##
+Test 0.2710027 0.3116531 0.3224932     0.3143631 0.3252033</font></font></p>
+</body>
+</html>
