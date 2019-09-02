@@ -24,3 +24,10 @@ Support Vector Machine - Radial<br>
 K Nearest Neighbors<br>
 Linear Discriminent Analysis<br>
 Quadratic Discriminent Analysis
+
+## DM_4 contains:
+General Adative Models<br>
+Classification Tree<br>
+Bagged Tree<br>
+Random Forests<br>
+Gradient Boosted Tree<br>
