@@ -48,7 +48,7 @@ Neural Net
 ## DM_7 contains:
 Naive Model<br>
 Logistic Regression<br>
-Normalized Logisitic Regression<br>
+Normalized Logisitic Regression
 Classification Tree<br>
 Random Forest<br>
 Gradiant Boosted Tree<br>
