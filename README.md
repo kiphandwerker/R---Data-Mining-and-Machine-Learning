@@ -31,3 +31,7 @@ Classification Tree<br>
 Bagged Tree<br>
 Random Forests<br>
 Gradient Boosted Tree<br>
+
+## DM_5 contains:
+K-means clustering<br>
+Hierarchical Clustering<br>
