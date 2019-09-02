@@ -52,4 +52,4 @@ Normalized Logisitic Regression
 Classification Tree<br>
 Random Forest<br>
 Gradiant Boosted Tree<br>
-Nueral Net
+Neural Net
